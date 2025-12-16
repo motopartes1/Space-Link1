@@ -30,7 +30,7 @@ const SpeedGauge = () => {
         setPhase('running');
         let animationFrame: number;
         let startTime: number;
-        const duration = 2500;
+        const duration = 8000;
 
         const animate = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
@@ -403,7 +403,7 @@ export default function PublicHomePage() {
             </section>
 
             {/* CTA Final */}
-            <section className="py-24 bg-gradient-to-r from-primary to-secondary">
+            <section className="py-24 bg-black">
                 <div className="max-w-4xl mx-auto text-center px-4">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                         <h2 className="text-4xl font-bold text-white mb-6">¿Listo para la mejor conexión?</h2>
