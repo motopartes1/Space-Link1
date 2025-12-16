@@ -20,34 +20,31 @@ export const usersService = {
     },
 
     /**
-     * Create a new user with Supabase Auth + profile
+     * Create a new user with Supabase Auth + profile (using server-side API for auto-confirm)
      */
     async create(formData: UserFormData): Promise<{ success: boolean; error?: string }> {
-        const { data: authData, error: authError } = await supabase.auth.signUp({
-            email: formData.email,
-            password: formData.password,
-        });
-
-        if (authError) {
-            return { success: false, error: authError.message };
-        }
-
-        if (authData.user) {
-            const { error: profileError } = await supabase.from('profiles').insert({
-                id: authData.user.id,
-                email: formData.email,
-                full_name: formData.full_name,
-                role: formData.role,
-                phone: formData.phone || null,
-                is_active: true,
+        try {
+            const response = await fetch('/api/admin/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
 
-            if (profileError) {
-                return { success: false, error: profileError.message };
-            }
-        }
+            const data = await response.json();
 
-        return { success: true };
+            if (!response.ok) {
+                return { success: false, error: data.error || 'Error al crear usuario' };
+            }
+
+            return { success: true };
+        } catch (error) {
+            return {
+                success: false,
+                error: error instanceof Error ? error.message : 'Error de conexión',
+            };
+        }
     },
 
     /**
