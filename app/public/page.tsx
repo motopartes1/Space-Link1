@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import {
     SignalIcon,
@@ -19,10 +19,15 @@ import BannerCarousel from '@/components/BannerCarousel';
 // Speedtest-style gauge animation - Clean Arc Style
 const SpeedGauge = () => {
     const [speed, setSpeed] = useState(0);
-    const [phase, setPhase] = useState<'running' | 'complete'>('running');
+    const [phase, setPhase] = useState<'idle' | 'running' | 'complete'>('idle');
     const targetSpeed = 300;
+    const containerRef = useRef(null);
+    const isInView = useInView(containerRef, { once: true, amount: 0.5 });
 
     useEffect(() => {
+        if (!isInView || phase !== 'idle') return;
+
+        setPhase('running');
         let animationFrame: number;
         let startTime: number;
         const duration = 2500;
@@ -45,18 +50,15 @@ const SpeedGauge = () => {
             }
         };
 
-        const timer = setTimeout(() => {
-            animationFrame = requestAnimationFrame(animate);
-        }, 500);
+        animationFrame = requestAnimationFrame(animate);
 
         return () => {
-            clearTimeout(timer);
             cancelAnimationFrame(animationFrame);
         };
-    }, []);
+    }, [isInView, phase]);
 
     return (
-        <div className="relative w-64 h-40 mx-auto">
+        <div ref={containerRef} className="relative w-64 h-40 mx-auto">
             {/* Outer glow effect */}
             <motion.div
                 className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/30 via-primary/30 to-purple-500/30 blur-2xl"
