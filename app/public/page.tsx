@@ -30,7 +30,7 @@ const SpeedGauge = () => {
         setPhase('running');
         let animationFrame: number;
         let startTime: number;
-        const duration = 8000;
+        const duration = 12000;
 
         const animate = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
@@ -109,10 +109,10 @@ const SpeedGauge = () => {
                 />
 
                 {/* Speed markers - positioned outside the arc */}
-                <text x="15" y="118" fill="rgba(255,255,255,0.6)" fontSize="11" fontWeight="500" textAnchor="middle">0</text>
-                <text x="58" y="50" fill="rgba(255,255,255,0.6)" fontSize="11" fontWeight="500" textAnchor="middle">100</text>
-                <text x="142" y="50" fill="rgba(255,255,255,0.6)" fontSize="11" fontWeight="500" textAnchor="middle">200</text>
-                <text x="185" y="118" fill="rgba(255,255,255,0.6)" fontSize="11" fontWeight="500" textAnchor="middle">300</text>
+                <text x="15" y="118" fill="rgba(255,255,255,0.9)" fontSize="14" fontWeight="600" textAnchor="middle">0</text>
+                <text x="58" y="50" fill="rgba(255,255,255,0.9)" fontSize="14" fontWeight="600" textAnchor="middle">100</text>
+                <text x="142" y="50" fill="rgba(255,255,255,0.9)" fontSize="14" fontWeight="600" textAnchor="middle">200</text>
+                <text x="185" y="118" fill="rgba(255,255,255,0.9)" fontSize="14" fontWeight="600" textAnchor="middle">300</text>
             </svg>
 
             {/* Center speed display */}
@@ -142,7 +142,7 @@ export default function PublicHomePage() {
     const heroRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
     const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const opacity = useTransform(scrollYProgress, [0.6, 1], [1, 0]);
     const [packages, setPackages] = useState<any[]>([]);
     const [packagesLoading, setPackagesLoading] = useState(true);
 
