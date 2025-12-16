@@ -402,7 +402,7 @@ export default function PublicHomePage() {
                 </div>
             </section>
 
-            {/* CTA Final */}
+            {/* CTA Final (Updated BG) */}
             <section className="py-24 bg-black">
                 <div className="max-w-4xl mx-auto text-center px-4">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
