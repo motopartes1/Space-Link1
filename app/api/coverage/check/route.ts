@@ -3,6 +3,8 @@ import { supabase } from '@/lib/supabase';
 import { checkCoverageSchema } from '@/lib/schemas';
 import { checkRateLimit, getClientIP, RATE_LIMITS, rateLimitResponse } from '@/lib/rate-limit';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
     try {
         // Rate limiting

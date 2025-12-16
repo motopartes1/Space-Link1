@@ -3,6 +3,8 @@ import { supabase } from '@/lib/supabase';
 import { trackFolioSchema } from '@/lib/schemas';
 import { checkRateLimit, getClientIP, RATE_LIMITS, rateLimitResponse } from '@/lib/rate-limit';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
     try {
         // Strict rate limiting for tracking endpoint
